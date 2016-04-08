@@ -3,6 +3,8 @@
 
 	angular.module('app', [
 		'app.home',
-		'app.router'
+		'app.router',
+    'ngMaterial',
+    'uiGmapgoogle-maps',
 	]);
 })();

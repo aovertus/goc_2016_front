@@ -9,7 +9,8 @@
 
 	function HomeController(homeService) {
 		var vm = this;
-		vm.posts = [];
+		vm.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
 
 		activate();
 
