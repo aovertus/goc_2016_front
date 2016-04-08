@@ -9,13 +9,29 @@
 
 	function HomeController(homeService) {
 		var vm = this;
-		vm.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+		vm.map = { center: { latitude: 23.0, longitude: 72.58 }, zoom: 8 };
+
+    vm.trackings = [{
+        id: 1,
+        geotracks: [{
+            latitude: 23.0,
+            longitude: 72.58
+        },{
+        	latitude: 23.05,
+        	longitude: 74
+        }, {
+            latitude: 23.1,
+            longitude: 72.58
+        }]
+    }];
 
 
 		activate();
 
 		function activate() {
-			getPosts();
+			homeService.getBusPaths().then(function(success){
+				console.log(success)
+			})
 		}
 
 		function getPosts() {
