@@ -8,16 +8,16 @@
 	homeService.$inject = ['$resource'];
 
 	function homeService($resource) {
-		var resource = $resource('http://adneom.herokuapp.com/api/posts');
+		var resource = $resource('http://opendata.vdl.lu/odaweb/?cat=553ddec59edb05fa3c02cb32');
 
 		var service = {
-			getPosts: getPosts
+			getData: getData
 		};
 		return service;
 
 
-		function getPosts() {
-			return resource.query('http://adneom.herokuapp.com/api/posts').$promise;
+		function getData() {
+			return resource.get().$promise;
 		}
 	}
 })();

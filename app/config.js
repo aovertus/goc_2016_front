@@ -4,4 +4,4 @@ angular.module('app', []).config(function(uiGmapGoogleMapApiProvider) {
         v: '3.20', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     });
-})
+});
