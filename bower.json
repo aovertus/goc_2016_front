@@ -1,0 +1,29 @@
+{
+  "name": "goc_2016_front",
+  "authors": [
+    "Justin Bériot <justin.beriot@gmail.com>",
+    "Samir Hanini <samir_hanini@live.be",
+    "Alexandre Overtus <a.overtus@live.be"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.3",
+    "angular-route": "~1.4.8",
+    "angular-ui-router": "ui-router#~0.2.15",
+    "angular-resource": "~1.5.3"
+  }
+}
