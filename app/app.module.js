@@ -4,6 +4,7 @@
 	angular.module('app', [
 		'app.home',
 		'app.router',
-    'ngMaterial'
+  	'ngMaterial',
+  	'uiGmapgoogle-maps',
 	]);
 })();

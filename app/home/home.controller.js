@@ -5,26 +5,17 @@
 		.module('app.home')
 		.controller('HomeController', HomeController);
 
-	HomeController.$inject = ['homeService'];
+	HomeController.$inject = ['homeService', 'uiGmapIsReady'];
 
-	function HomeController(homeService) {
+	function HomeController(homeService, uiGmapIsReady) {
 		var vm = this;
-		vm.map = { center: { latitude: 23.0, longitude: 72.58 }, zoom: 8 };
-
-    vm.trackings = [{
-        id: 1,
-        geotracks: [{
-            latitude: 23.0,
-            longitude: 72.58
-        },{
-        	latitude: 23.05,
-        	longitude: 74
-        }, {
-            latitude: 23.1,
-            longitude: 72.58
-        }]
-    }];
-
+		vm.map = { 
+			center: { 
+				latitude: 45, 
+				longitude: -73 
+			}, 
+			zoom: 8 
+		};
 
 		activate();
 
@@ -32,14 +23,17 @@
 			homeService.getBusPaths().then(function(success){
 				console.log(success)
 			})
-		}
-
-		function getPosts() {
-			homeService.getPosts()
-				.then(function(data) {
-					vm.posts = data;
-					return vm.posts;
-				});
+			Promise.all([
+				uiGmapIsReady.promise(1),
+			])
+			.then(function(results) {
+				var map = results[0][0].map;
+				console.log('map', map);
+				map.data.loadGeoJson('http://opendata.vdl.lu/odaweb/?cat=4f33bc2e6613c9dafd6e6907');
+			})
+			.catch(function(err) {
+				console.log('err', err);
+			});
 		}
 	}
 })();

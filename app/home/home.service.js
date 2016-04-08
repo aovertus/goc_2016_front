@@ -13,12 +13,10 @@
 			getBusLines: getBusLines,
 			getBusPath: getBusPath,
 			getBusPaths: getBusPaths
-			// initBusLines: initBusLines
 		};
 
 		var busLines = [];
 		return service;
-
 
 		function getBusLines() {
 			if (busLines.length != 0){

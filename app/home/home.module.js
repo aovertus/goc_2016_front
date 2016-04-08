@@ -3,6 +3,7 @@
 
 	angular.module('app.home', [
 		'app.router',
-		'ngResource'
+		'ngResource',
+		'uiGmapgoogle-maps'
 	]);
 })();
