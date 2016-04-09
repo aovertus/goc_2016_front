@@ -3,6 +3,7 @@
 
 	angular.module('app', [
 		'app.home',
+    'app.listBusLines',
 		'app.router',
   	'ngMaterial',
   	'uiGmapgoogle-maps',
