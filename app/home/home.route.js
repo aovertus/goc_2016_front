@@ -17,7 +17,7 @@
             {
                 state: 'home',
                 config: {
-                    url: '/',
+                    url: '/:line',
                     templateUrl: 'app/home/home.html',
                     controller: 'HomeController',
                     controllerAs: 'vm'

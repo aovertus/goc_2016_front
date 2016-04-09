@@ -8,11 +8,8 @@
     </md-toolbar>
 
     <md-list>
-        <md-list-item>
-          <md-button>Primary</md-button>
-        </md-list-item>
-        <md-list-item>
-          <md-button>Primary</md-button>
+        <md-list-item ng-repeat="line in vm.lines">
+          <md-button ng-click="vm.changeLine(line.line.line)"><i class="ion-android-bus"></i> Line {{ line.line.line }}</md-button>
         </md-list-item>
     </md-list>
 	</md-sidenav>

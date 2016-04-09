@@ -5,9 +5,9 @@
     .module('app.menu')
     .directive('sideMenu', initMenu);
 
-  initMenu.$inject = ['$mdSidenav'];
+  initMenu.$inject = ['$mdSidenav', 'homeService', '$state'];
 
-  function initMenu($mdSidenav) {
+  function initMenu($mdSidenav, homeService, $state) {
     return {
       restrict: 'E',
       scope: {
@@ -15,11 +15,19 @@
       },
       controllerAs: 'vm',
       templateUrl: 'app/side_menu/menu.html',
-      controller: function($scope) {
+      controller: function($scope, $state) {
         var vm = this;
+          homeService.getLines().then(function(lines) {
+            vm.lines = lines;
+          });
+
+          vm.changeLine = function(line) {
+            console.log('line');
+            $state.go('home', {line: line});
+          };
+
           vm.toggleMenu = function() {
-          console.log($mdSidenav);
-          $mdSidenav('left').toggle();
+            $mdSidenav('left').toggle();
         };
       }
     };

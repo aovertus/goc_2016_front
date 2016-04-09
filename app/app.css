@@ -6,9 +6,6 @@
   width: 36px;
 }
 
-.ng-scope {
-  height: 100%;
-}
 
 md-toolbar h3 {
   margin: auto;
@@ -18,8 +15,7 @@ md-toolbar h3 {
 
 md-list-item > button {
   width:100%;
-  text-align:left !important;
-  height:70px;;
+  text-align:center !important;
 }
 
 

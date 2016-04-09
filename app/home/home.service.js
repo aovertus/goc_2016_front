@@ -11,16 +11,17 @@
 
 		var service = {
 			getBusPositionInRealTime: getBusPositionInRealTime,
-			GetStops: GetStops
+			GetStops: GetStops,
+			getLines: getLines
 		};
 		return service;
 
-		function GetLines() {
-
+		function getLines() {
+			return $resource('http://goc-ror-2016.herokuapp.com/api/lines.json').query().$promise;
 		}
 
 		function GetStops(line) {
-			return $resource('http://goc-ror-2016.herokuapp.com/api/lines/3.json').get().$promise;
+			return $resource('http://goc-ror-2016.herokuapp.com/api/lines/' + line +'.json').get().$promise;
 		}
 
 		function getBusPositionInRealTime(idBus){

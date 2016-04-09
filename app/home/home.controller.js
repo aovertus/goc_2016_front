@@ -5,12 +5,14 @@
 		.module('app.home')
 		.controller('HomeController', HomeController);
 
-	HomeController.$inject = ['homeService', 'uiGmapIsReady', '$timeout', '$mdSidenav'];
+	HomeController.$inject = ['homeService', 'uiGmapIsReady', '$timeout', '$mdSidenav', '$stateParams'];
 
-	function HomeController(homeService, uiGmapIsReady, $timeout, $mdSidenav) {
+	function HomeController(homeService, uiGmapIsReady, $timeout, $mdSidenav, $stateParams) {
 		var vm = this;
 		vm.getBusInRealTime = getBusInRealTime;
 		vm.lastStopByBus;
+
+		vm.line = $stateParams.line;
 
 		vm.map = { 
 			center: { 
@@ -38,7 +40,7 @@
 		function activate() {
 				Promise.all([
 					uiGmapIsReady.promise(1),
-					homeService.GetStops(1)
+					homeService.GetStops(vm.line)
 				])
 				.then(function(results) {
 					var map = results[0][0].map;
@@ -47,16 +49,13 @@
 					}
 
 					results[1].line.stops.forEach(function(s) {
-						console.log(s.stop);
 						var marker = new google.maps.Marker({
 						    position: s.stop.coordonnes,
 						    map: map
 						});
-
-						console.log(marker);
 					});
 
-					//initialize();
+					initialize();
 
 					function moveMarker(map, marker, latlng) {
 					    marker.setPosition(latlng);

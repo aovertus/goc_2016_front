@@ -4,5 +4,6 @@
 	angular.module('app.menu', [
 		'app.router',
 		'ngResource',
+		'app.home'
 	]);
 })();
