@@ -48,12 +48,37 @@
 					    getDirections(map);
 					}
 
+					console.log(results[1].line.stops[0])
+
+			    var request = {
+			        origin: new google.maps.LatLng(results[1].line.stops[0].stop.coordonnes.lat, results[1].line.stops[0].stop.coordonnes.lng),
+			        destination: new google.maps.LatLng(results[1].line.stops[7].stop.coordonnes.lat, results[1].line.stops[7].stop.coordonnes.lng),
+			        waypoints: [],
+			        travelMode: google.maps.TravelMode.TRANSIT
+			    };
+
 					results[1].line.stops.forEach(function(s) {
 						var marker = new google.maps.Marker({
 						    position: s.stop.coordonnes,
 						    map: map
 						});
+						if (request.waypoints.lenght < 9){
+							request.waypoints.push({
+					      'location': new google.maps.LatLng(s.stop.coordonnes.lat, s.stop.coordonnes.lng),
+					      'stopover': true						
+							})
+						}
 					});
+
+			    var directionsService = new google.maps.DirectionsService();
+
+
+
+			    directionsService.route(request, function(result, status) {
+			        if (status == google.maps.DirectionsStatus.OK) {
+			            autoRefresh(map, result.routes[0].overview_path);
+			        }
+			    });
 
 					initialize();
 
@@ -88,11 +113,6 @@
 					function getDirections(map) {
 					    var directionsService = new google.maps.DirectionsService();
 
-					    var request = {
-					        origin: new google.maps.LatLng(49.598875043690924, 6.104835322800303),
-					        destination: new google.maps.LatLng(49.624193041532145, 6.122219430159065),
-					        travelMode: google.maps.TravelMode.DRIVING
-					    };
 					    directionsService.route(request, function(result, status) {
 					        if (status == google.maps.DirectionsStatus.OK) {
 					            autoRefresh(map, result.routes[0].overview_path);
@@ -102,9 +122,7 @@
 
 					//google.maps.event.addDomListener(window, 'load', initialize);
 				})
-				.catch(function(err) {
-					console.log('err', err);
-				});
+
 		}
 
 		function getBusInRealTime(/*line, idBusStop*/) {
@@ -135,6 +153,7 @@
 									real_time_stop: success.Departure[i].rtTime
 								}
 							}
+							console.log("last stop id", success.Departure[i].stopid)
 							break;
 						}
 					}
