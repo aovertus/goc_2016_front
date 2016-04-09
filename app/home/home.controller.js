@@ -36,19 +36,27 @@
 		}
 
 		function activate() {
-			homeService.getBusPaths()
-				.then(function() {
-					return Promise.all([
-						uiGmapIsReady.promise(1),
-					]);
-				})
+				Promise.all([
+					uiGmapIsReady.promise(1),
+					homeService.GetStops(1)
+				])
 				.then(function(results) {
 					var map = results[0][0].map;
 					function initialize() {
 					    getDirections(map);
 					}
 
-					initialize();
+					results[1].line.stops.forEach(function(s) {
+						console.log(s.stop);
+						var marker = new google.maps.Marker({
+						    position: s.stop.coordonnes,
+						    map: map
+						});
+
+						console.log(marker);
+					});
+
+					//initialize();
 
 					function moveMarker(map, marker, latlng) {
 					    marker.setPosition(latlng);
