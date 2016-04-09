@@ -4,7 +4,9 @@
 	angular.module('app', [
 		'app.home',
 		'app.router',
-  	'ngMaterial',
-  	'uiGmapgoogle-maps',
+    	'ngMaterial',
+    	'uiGmapgoogle-maps',
+    	'app.menu',
+    	'app.headerApp'
 	]);
 })();

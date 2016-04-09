@@ -17,6 +17,7 @@
 			zoom: 8 
 		};
 
+
 		activate();
 
 		function activate() {
