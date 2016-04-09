@@ -19,8 +19,8 @@
 		return service;
 
 		function getBusLines() {
-			if (busLines.length != 0){
-				return busLines
+			if (busLines.length !== 0) {
+				return busLines;
 			}
 			return $resource('http://opendata.vdl.lu/odaweb/index.jsp?describe=1').get().$promise.then(function(success){
 				success.data.forEach(function(busLine){
@@ -33,6 +33,7 @@
 		}
 
 		function getBusPath(id){
+			console.log('test 2');
 			var busLine = busLines.find(function(busline){ return busline.id == id })
 			if (busLine.path){
 				return busLine

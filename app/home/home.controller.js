@@ -11,8 +11,8 @@
 		var vm = this;
 		vm.map = { 
 			center: { 
-				latitude: 45, 
-				longitude: -73 
+				latitude: 49.6116700, 
+				longitude: 6.13
 			}, 
 			zoom: 8 
 		};
@@ -21,20 +21,22 @@
 		activate();
 
 		function activate() {
-			homeService.getBusPaths().then(function(success){
-				console.log(success)
-			})
-			Promise.all([
-				uiGmapIsReady.promise(1),
-			])
-			.then(function(results) {
-				var map = results[0][0].map;
-				console.log('map', map);
-				map.data.loadGeoJson('http://opendata.vdl.lu/odaweb/?cat=4f33bc2e6613c9dafd6e6907');
-			})
-			.catch(function(err) {
-				console.log('err', err);
-			});
+			homeService.getBusPaths()
+				.then(function() {
+					console.log('test');
+					return Promise.all([
+						uiGmapIsReady.promise(1),
+						homeService.getBusPath('553ddec59edb05fa3c02cb32')
+					]);
+				})
+				.then(function(results) {
+					var map = results[0][0].map;
+					console.log(results[1]);
+					map.data.addGeoJson(JSON.stringify(results[1]).features);
+				})
+				.catch(function(err) {
+					console.log('err', err);
+				});
 		}
 	}
 })();
