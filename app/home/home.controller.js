@@ -19,7 +19,7 @@
 			zoom: 16 
 		};
 
-// {stopover: false, location: new google.maps.LatLng(49.624193041532145, 6.122219430159065)},
+
 		activate();
 
 		function changeMarkerPosition(marker) {

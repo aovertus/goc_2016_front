@@ -5,7 +5,9 @@
 		'app.home',
     'app.listBusLines',
 		'app.router',
-  	'ngMaterial',
-  	'uiGmapgoogle-maps',
+    	'ngMaterial',
+    	'uiGmapgoogle-maps',
+    	'app.menu',
+    	'app.headerApp'
 	]);
 })();
