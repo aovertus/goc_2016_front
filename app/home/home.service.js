@@ -12,7 +12,8 @@
 		var service = {
 			getBusLines: getBusLines,
 			getBusPath: getBusPath,
-			getBusPaths: getBusPaths
+			getBusPaths: getBusPaths,
+			getBusPositionInRealTime: getBusPositionInRealTime
 		};
 
 		var busLines = [];
@@ -57,6 +58,13 @@
 			})
 		}
 
+		function getBusPositionInRealTime(idBus){
+			//var idBus = 'id=A=1@O=Limpertsberg, L.T.Michel Lucius@X=6,115154@Y=49,624698@U=82@L=200419022@B=1@p=1459856195';
+			if(idBus){
+				return $resource("http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&format=json&"+idBus).get()
+				.$promise;
+			}
+		}
 
 		// function initBusLines(){
 		// 	if (!busLines){

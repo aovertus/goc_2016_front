@@ -9,6 +9,9 @@
 
 	function HomeController(homeService, uiGmapIsReady, $timeout) {
 		var vm = this;
+		vm.getBusInRealTime = getBusInRealTime;
+		vm.lastStopByBus;
+
 		vm.map = { 
 			center: { 
 				// latitude: 49.6116700, 
@@ -90,6 +93,60 @@
 					console.log('err', err);
 				});
 		}
+
+		function getBusInRealTime(/*line, idBusStop*/) {
+			var line = '30';
+			var idBusStop = ['id=A=1@O=Limpertsberg, L.T.Michel Lucius@X=6,115154@Y=49,624698@U=82@L=200419022@B=1@p=1459856195'
+			,'id=A=1@O=Belair, Wampach@X=6,120548@Y=49,609812@U=82@L=200403020@B=1@p=1459856195',
+			'id=A=1@O=Rollingergrund, Beim Klomp@X=6,111181@Y=49,618001@U=82@L=200425004@B=1@p=1459856195'];			
+			idBusStop.forEach(function(bus_stop_id){
+				//console.log(bus_stop_id);
+				homeService.getBusPositionInRealTime(bus_stop_id)
+				.then(function(success){
+					//console.log("successsss");
+					//console.log(success);
+					for(var i = 0; i < success.Departure.length; i++){
+						if(success.Departure[i].Product.line === line && success.Departure[i]){
+							if(vm.lastStopByBus){
+								if(vm.lastStopByBus.stop_id === success.Departure[i].stopid) {
+									vm.lastStopByBus = {
+										stop_id: success.Departure[i].stopid,
+										real_time_stop: success.Departure[i].rtTime
+									}
+								}
+
+							}
+							else{
+								vm.lastStopByBus = {
+									stop_id: success.Departure[i].stopid,
+									real_time_stop: success.Departure[i].rtTime
+								}
+							}
+							break;
+						}
+					}
+					
+					console.log(vm.lastStopByBus);
+					//console.log(vm.arrayBusStopped);
+					//return vm.lastStopByBus;
+				})
+				.catch(function(err){
+					console.log('err',err);
+				});
+			})
+			
+		}
+
+		function animateCircle(line) {
+          var count = 0;
+          window.setInterval(function() {
+            count = (count + 1) % 200;
+
+            var icons = line.get('icons');
+            icons[0].offset = (count / 2) + '%';
+            line.set('icons', icons);
+        }, 20);
+      }
 	}
 })();
 
