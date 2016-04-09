@@ -16,8 +16,8 @@
 
     function activate() {
       homeService.getBusLines().then(function(success){
-        console.log(success)
-      })
+        console.log(success);
+      });
     }
   }
 })();

@@ -6,13 +6,15 @@
   width: 36px;
 }
 
+.ng-scope {
+  height: 100%;
+}
 
 md-toolbar h3 {
   margin: auto;
   font-weight: 500;
 }
 
-/* Sidenav area */
 
 md-list-item > button {
   width:100%;

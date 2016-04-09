@@ -1,10 +1,9 @@
 (function() {
   'use strict';
 
-
   angular
-  .module('app.menu')
-  .directive('sideMenu', initMenu);
+    .module('app.menu')
+    .directive('sideMenu', initMenu);
 
   initMenu.$inject = ['$mdSidenav'];
 
@@ -14,19 +13,17 @@
       scope: {
         title: '@'
       },
+      controllerAs: 'vm',
       templateUrl: 'app/side_menu/menu.html',
-      link: function (scope) {
-        scope.toggleMenu = function() {
+      controller: function($scope) {
+        var vm = this;
+          vm.toggleMenu = function() {
           console.log($mdSidenav);
-          $mdSidenav('left')
-            .close()
-            .then(function(){
-              console.log("menu close!");
-            });
-        }
+          $mdSidenav('left').toggle();
+        };
       }
     };
-  };
+  }
 
   
 })();

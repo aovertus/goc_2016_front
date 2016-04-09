@@ -25,36 +25,38 @@
 			return $resource('http://opendata.vdl.lu/odaweb/index.jsp?describe=1').get().$promise.then(function(success){
 				success.data.forEach(function(busLine){
 					if (busLine.i18n.fr.name.indexOf("Ligne") > -1) {
-						busLines.push(busLine)
+						busLines.push(busLine);
 					}
-				})
-				return Promise.resolve(busLines)
-			})
+				});
+				return Promise.resolve(busLines);
+			});
 		}
 
 		function getBusPath(id){
-			console.log('test 2');
-			var busLine = busLines.find(function(busline){ return busline.id == id })
-			if (busLine.path){
-				return busLine
-			}else{
+			var busLine = busLines.find(function(busline) { 
+				return busline.id == id;
+			});
+
+			if (busLine.path) {
+				return busLine;
+			} else {
 				return $resource("http://opendata.vdl.lu/odaweb/?cat="+busLine.id).get().$promise.then(function(success){
 					success.features.forEach(function(feature){
 						feature.properties.name = feature.properties.name.replace("<br>", "");
-					})
-					busLine["path"] = success;
-					return Promise.resolve(busLine)					
-				})
+					});
+					busLine.path = success;
+					return Promise.resolve(busLine);			
+				});
 			}
 		}
 
 		function getBusPaths(){
-			return getBusLines().then(function(tmpBusLines){
-				tmpBusLines.forEach(function(tmpBusLine){
+			return getBusLines().then(function(tmpBusLines) {
+				tmpBusLines.forEach(function(tmpBusLine) {
 					getBusPath(tmpBusLine.id);
-				})
+				});
 				return Promise.resolve(busLines);
-			})
+			});
 		}
 
 

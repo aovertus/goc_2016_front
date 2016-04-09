@@ -5,9 +5,9 @@
 		.module('app.home')
 		.controller('HomeController', HomeController);
 
-	HomeController.$inject = ['homeService', 'uiGmapIsReady', '$timeout'];
+	HomeController.$inject = ['homeService', 'uiGmapIsReady', '$timeout', '$mdSidenav'];
 
-	function HomeController(homeService, uiGmapIsReady, $timeout) {
+	function HomeController(homeService, uiGmapIsReady, $timeout, $mdSidenav) {
 		var vm = this;
 		vm.map = { 
 			center: { 
@@ -22,6 +22,11 @@
 
 		activate();
 
+		vm.toggleList = function() {
+			console.log('toggle');
+      		$mdSidenav('left').toggle();
+		};
+
 		function changeMarkerPosition(marker) {
 		    var latlng = new google.maps.LatLng(49.598875043690924, 6.104835322800303);
 		    marker.setPosition(latlng);
@@ -30,7 +35,6 @@
 		function activate() {
 			homeService.getBusPaths()
 				.then(function() {
-					console.log('test');
 					return Promise.all([
 						uiGmapIsReady.promise(1),
 					]);
@@ -40,6 +44,8 @@
 					function initialize() {
 					    getDirections(map);
 					}
+
+					initialize();
 
 					function moveMarker(map, marker, latlng) {
 					    marker.setPosition(latlng);
@@ -52,20 +58,20 @@
 					    route = new google.maps.Polyline({
 					        path: [],
 					        geodesic : true,
-					        strokeColor: '#FF0000',
+					        strokeColor: '#e91e63',
 					        strokeOpacity: 1.0,
 					        strokeWeight: 2,
 					        editable: false,
 					        map:map
 					    });
 					    
-					    marker=new google.maps.Marker({map:map, icon:"http://maps.google.com/mapfiles/ms/micons/blue.png"});
+					    marker =  new google.maps.Marker({map:map, icon:"./app/bus.png"});
 
 					    for (i = 0; i < pathCoords.length; i++) {                
 					        setTimeout(function(coords) {
 					            route.getPath().push(coords);
 					            moveMarker(map, marker, coords);
-					        }, 200 * i, pathCoords[i]);
+					        }, 400 * i, pathCoords[i]);
 					    }
 					}
 
@@ -84,7 +90,7 @@
 					    });
 					}
 
-					google.maps.event.addDomListener(window, 'load', initialize);
+					//google.maps.event.addDomListener(window, 'load', initialize);
 				})
 				.catch(function(err) {
 					console.log('err', err);
